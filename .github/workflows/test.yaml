@@ -40,11 +40,11 @@ jobs:
         
             
 
-      - name : Terraform Apply
-        env:
+      - name: Terraform Apply
+        env: 
           TF_VAR_bucket_name: ${{ secrets.BUCKET_NAME }}
         run: terraform apply -auto-approve
-        working-directory: terraform
+        working-directory: terraform 
     
      
 
