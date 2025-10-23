@@ -4,19 +4,22 @@ resource "aws_s3_bucket" "static_sites_dobigoth" {
   force_destroy = true
 }
 
-#tfsec:ignore:aws-s3-enable-bucket-logging
+
 resource "aws_s3_bucket_ownership_controls" "ownership_dobigoth" {
-  bucket = aws_s3_bucket.static_site.id
+  bucket = aws_s3_bucket.static_sites_dobigoth.id
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
 }
 
 resource "aws_s3_bucket_acl" "acl_dobigoth" {
-  depends_on = [aws_s3_bucket_ownership_controls.example]
+  #depends_on = [aws_s3_bucket_ownership_controls.example]
   bucket = aws_s3_bucket.static_sites_dobigoth.id
   acl    = "private"
+  
+  depends_on = [aws_s3_bucket_ownership_controls.example]
 }
+
 
 resource "aws_s3_bucket_public_access_block" "access_dobigoth" {
   bucket = aws_s3_bucket.static_sites_dobigoth.id
