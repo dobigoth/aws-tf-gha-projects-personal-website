@@ -13,7 +13,7 @@ resource "aws_s3_bucket_ownership_controls" "ownership_dobigoth" {
 }
 
 resource "aws_s3_bucket_acl" "acl_dobigoth" {
-  depends_on = [aws_s3_bucket_ownership_controls.example]
+  #depends_on = [aws_s3_bucket_ownership_controls.example]
   bucket = aws_s3_bucket.static_sites_dobigoth.id
   acl    = "private"
 }
