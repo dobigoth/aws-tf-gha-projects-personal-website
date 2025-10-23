@@ -4,6 +4,13 @@ resource "aws_s3_bucket" "static_sites_dobigoth" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_website_configuration" "static_website_config" {
+  bucket = aws_s3_bucket.static_sites_dobigoth
+
+  index_document {
+    suffix = "index.html"
+  }
+}
 
 resource "aws_s3_bucket_ownership_controls" "ownership_dobigoth" {
   bucket = aws_s3_bucket.static_sites_dobigoth.id
@@ -30,7 +37,7 @@ resource "aws_s3_bucket_acl" "acl_dobigoth" {
 # }
 
 resource "aws_s3_bucket_policy" "static_site_policy" {
-  bucket = aws_s3_bucket.static_site.id
+  bucket = aws_s3_bucket.static_sites_dobigoth.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
